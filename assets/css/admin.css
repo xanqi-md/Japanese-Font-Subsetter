@@ -1,0 +1,608 @@
+/* ===================================================
+   Japanese Font Subsetter — Admin Styles
+   =================================================== */
+
+:root {
+    --jfs-primary:   #4f46e5;
+    --jfs-primary-h: #4338ca;
+    --jfs-success:   #16a34a;
+    --jfs-error:     #dc2626;
+    --jfs-warn:      #d97706;
+    --jfs-bg:        #f8f9ff;
+    --jfs-card:      #ffffff;
+    --jfs-border:    #e2e8f0;
+    --jfs-text:      #1e293b;
+    --jfs-muted:     #64748b;
+    --jfs-radius:    12px;
+    --jfs-shadow:    0 2px 16px rgba(79,70,229,.10);
+}
+
+/* ---- Layout ---- */
+.jfs-wrap {
+    max-width: 1200px;
+    padding: 20px 0;
+    color: var(--jfs-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.jfs-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px !important;
+    font-weight: 700;
+    color: var(--jfs-primary) !important;
+    margin-bottom: 24px !important;
+}
+.jfs-title .dashicons { font-size: 28px; width: 28px; height: 28px; }
+
+.jfs-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+}
+@media (max-width: 900px) {
+    .jfs-main-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Cards ---- */
+.jfs-card {
+    background: var(--jfs-card);
+    border: 1px solid var(--jfs-border);
+    border-radius: var(--jfs-radius);
+    padding: 28px;
+    box-shadow: var(--jfs-shadow);
+}
+.jfs-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--jfs-border);
+    color: var(--jfs-primary);
+}
+.jfs-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 20px 0 12px;
+    color: var(--jfs-text);
+}
+
+/* ---- 環境チェック ---- */
+.jfs-env-check {
+    background: var(--jfs-card);
+    border: 1px solid var(--jfs-border);
+    border-radius: var(--jfs-radius);
+    padding: 20px 28px;
+    box-shadow: var(--jfs-shadow);
+}
+.jfs-env-check h2 { font-size: 16px; margin: 0 0 14px; }
+.jfs-env-table { width: auto; border-collapse: collapse; }
+.jfs-env-table th, .jfs-env-table td {
+    padding: 6px 16px;
+    font-size: 13px;
+    text-align: left;
+}
+.jfs-env-table th { font-weight: 600; color: var(--jfs-muted); width: 200px; }
+.jfs-ok   { color: var(--jfs-success); font-weight: 600; }
+.jfs-ng   { color: var(--jfs-error);   font-weight: 600; }
+.jfs-warn { color: var(--jfs-warn);    font-weight: 600; }
+
+.jfs-notice {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+.notice-error { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+.jfs-notice code {
+    background: #fee2e2;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* ---- Dropzone ---- */
+.jfs-dropzone {
+    border: 2px dashed var(--jfs-border);
+    border-radius: 10px;
+    padding: 32px 20px;
+    text-align: center;
+    transition: all .2s;
+    cursor: pointer;
+    background: var(--jfs-bg);
+}
+.jfs-dropzone:hover,
+.jfs-dropzone.dragover {
+    border-color: var(--jfs-primary);
+    background: #eef2ff;
+}
+.jfs-drop-icon  { font-size: 48px; display: block; margin-bottom: 8px; }
+.jfs-drop-text  { font-size: 15px; font-weight: 600; margin: 0; }
+.jfs-drop-sub   { font-size: 12px; color: var(--jfs-muted); margin: 4px 0; }
+.jfs-drop-formats { font-size: 12px; color: var(--jfs-muted); margin: 8px 0 0; }
+.jfs-selected-file {
+    font-size: 13px; font-weight: 600;
+    color: var(--jfs-primary); margin: 8px 0 0;
+    word-break: break-all;
+}
+
+.jfs-file-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--jfs-primary);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background .2s;
+}
+.jfs-file-btn:hover { background: var(--jfs-primary-h); color: #fff; }
+
+/* ---- Subset Grid ---- */
+.jfs-subset-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.jfs-subset-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 2px solid var(--jfs-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .2s;
+    background: var(--jfs-bg);
+}
+.jfs-subset-item:hover { border-color: var(--jfs-primary); background: #eef2ff; }
+.jfs-subset-item.active {
+    border-color: var(--jfs-primary);
+    background: #eef2ff;
+    box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+}
+.jfs-subset-item input[type=radio] { margin: 2px 0 0; flex-shrink: 0; }
+.jfs-subset-icon {
+    font-size: 18px;
+    min-width: 28px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--jfs-primary);
+    flex-shrink: 0;
+}
+.jfs-subset-label {
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    line-height: 1.4;
+}
+.jfs-subset-desc {
+    font-size: 11px;
+    color: var(--jfs-muted);
+    display: block;
+    margin-top: 2px;
+    line-height: 1.4;
+}
+.jfs-subset-item > div { flex: 1; }
+
+/* ---- Convert Button ---- */
+.jfs-convert-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: var(--jfs-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+}
+.jfs-convert-btn:hover:not(:disabled) {
+    background: var(--jfs-primary-h);
+    transform: translateY(-1px);
+}
+.jfs-convert-btn:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ---- Progress ---- */
+.jfs-progress-bar {
+    background: var(--jfs-border);
+    border-radius: 99px;
+    height: 8px;
+    margin: 16px 0 8px;
+    overflow: hidden;
+}
+.jfs-progress-fill {
+    height: 100%;
+    background: var(--jfs-primary);
+    border-radius: 99px;
+    width: 0%;
+    animation: jfs-progress 2s ease-in-out infinite;
+}
+@keyframes jfs-progress {
+    0%   { width: 5%; }
+    50%  { width: 80%; }
+    100% { width: 95%; }
+}
+.jfs-progress-text { font-size: 13px; color: var(--jfs-muted); text-align: center; margin: 0; }
+
+/* ---- Result ---- */
+.jfs-result-success {
+    margin-top: 16px;
+    padding: 16px;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 8px;
+}
+.jfs-result-success strong { color: var(--jfs-success); }
+.jfs-result-error {
+    margin-top: 16px;
+    padding: 16px;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    color: var(--jfs-error);
+    font-size: 13px;
+}
+.jfs-dl-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 18px;
+    background: var(--jfs-success);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s;
+}
+.jfs-dl-link:hover { background: #15803d; color: #fff; }
+
+/* ---- Files Table ---- */
+.jfs-files-table {
+    font-size: 13px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.jfs-files-table th { background: var(--jfs-bg) !important; font-weight: 600; }
+.jfs-actions { white-space: nowrap; }
+.jfs-actions .button { margin-right: 4px; font-size: 12px !important; }
+.jfs-dl-btn  { color: #0ea5e9 !important; }
+.jfs-delete-btn { color: var(--jfs-error) !important; }
+
+.jfs-empty-state {
+    text-align: center;
+    padding: 32px;
+    color: var(--jfs-muted);
+}
+
+/* ---- Code Snippet ---- */
+.jfs-snippet-section { margin-top: 24px; }
+.jfs-code-snippet {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+/* ===== v2.0 追加スタイル ===== */
+
+/* バージョンバッジ */
+.jfs-version-badge {
+    background: var(--jfs-primary);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* ブラウザJS処理案内バナー */
+.jfs-info-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: var(--jfs-radius);
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #1e40af;
+    line-height: 1.6;
+}
+.jfs-info-icon { font-size: 18px; flex-shrink: 0; }
+
+/* 進捗バー */
+.jfs-progress-bar {
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 12px 0 6px;
+}
+.jfs-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--jfs-primary), #818cf8);
+    border-radius: 6px;
+    transition: width 0.4s ease;
+}
+.jfs-progress-text {
+    font-size: 13px;
+    color: var(--jfs-muted);
+    margin: 0;
+    text-align: center;
+}
+
+/* 変換ボタン */
+.jfs-convert-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--jfs-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 16px;
+    display: block;
+}
+.jfs-convert-btn:hover:not(:disabled) { background: var(--jfs-primary-h); }
+.jfs-convert-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ドロップゾーン */
+.jfs-dropzone {
+    border: 2px dashed var(--jfs-border);
+    border-radius: var(--jfs-radius);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: var(--jfs-bg);
+}
+.jfs-dropzone.dragover, .jfs-dropzone:hover { border-color: var(--jfs-primary); background: #f0f0ff; }
+.jfs-dropzone.has-file { border-color: var(--jfs-success); background: #f0fdf4; }
+.jfs-drop-icon { font-size: 36px; display: block; margin-bottom: 8px; }
+.jfs-drop-text { font-size: 15px; font-weight: 600; margin: 0 0 4px; }
+.jfs-drop-sub, .jfs-drop-formats { font-size: 12px; color: var(--jfs-muted); margin: 2px 0; }
+.jfs-file-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--jfs-primary);
+    color: #fff !important;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 6px 0;
+    transition: background 0.2s;
+}
+.jfs-file-btn:hover { background: var(--jfs-primary-h); }
+.jfs-selected-file {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--jfs-success);
+    margin: 4px 0 0;
+}
+
+/* サブセット選択グリッド */
+.jfs-subset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+}
+.jfs-subset-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border: 2px solid var(--jfs-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: #fff;
+}
+.jfs-subset-item input[type="radio"] { display: none; }
+.jfs-subset-item:hover { border-color: var(--jfs-primary); background: #f5f5ff; }
+.jfs-subset-item.active {
+    border-color: var(--jfs-primary);
+    background: #eef2ff;
+}
+.jfs-subset-icon { font-size: 18px; }
+.jfs-subset-label { font-size: 13px; font-weight: 600; color: var(--jfs-text); }
+.jfs-subset-desc { font-size: 11px; color: var(--jfs-muted); line-height: 1.4; }
+
+/* 結果 */
+.jfs-result-success {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+.jfs-result-error {
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--jfs-error);
+}
+.jfs-dl-link {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 16px;
+    background: var(--jfs-primary);
+    color: #fff !important;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+}
+.jfs-dl-link:hover { background: var(--jfs-primary-h); }
+
+/* ファイルテーブル */
+.jfs-files-table { font-size: 13px; }
+.jfs-files-table .jfs-actions { white-space: nowrap; }
+.jfs-dl-btn, .jfs-delete-btn { margin: 2px !important; }
+.jfs-empty-state { color: var(--jfs-muted); font-size: 13px; padding: 20px 0; text-align: center; }
+
+/* コードスニペット */
+.jfs-code-snippet {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre;
+    font-family: 'SFMono-Regular', Consolas, monospace;
+}
+
+/* 環境チェック互換 (削除しても可) */
+.jfs-env-check, .jfs-env-table, .jfs-env-table th, .jfs-env-table td,
+.jfs-ok, .jfs-ng, .jfs-warn, .jfs-notice, .notice-error { display: none; }
+
+/* =============================================================
+   v2.2 追加スタイル
+   ============================================================= */
+
+/* ---- 推奨バッジ（右上の赤ラベル） ---- */
+.jfs-subset-item {
+    position: relative; /* バッジの基準点 */
+}
+.jfs-badge-recommended {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    background: #dc2626;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 0 6px 0 6px; /* 右上角丸・左下角丸 */
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    pointer-events: none;
+    z-index: 1;
+}
+/* 推奨オプション選択時のボーダー強調 */
+.jfs-subset-item.jfs-subset-recommended {
+    border-color: #fca5a5;
+}
+.jfs-subset-item.jfs-subset-recommended:hover,
+.jfs-subset-item.jfs-subset-recommended.active {
+    border-color: #dc2626;
+    background: #fff5f5;
+    box-shadow: 0 0 0 3px rgba(220,38,38,.12);
+}
+
+/* ---- Elementor 連携バナー ---- */
+.jfs-elementor-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border-radius: var(--jfs-radius);
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.7;
+}
+.jfs-elementor-banner--empty {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    color: #0c4a6e;
+}
+.jfs-elementor-banner--active {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    color: #14532d;
+}
+.jfs-elementor-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* ---- Elementor 登録ステータスセル ---- */
+.jfs-elementor-status {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+.jfs-elementor-status--ok {
+    background: #dcfce7;
+    color: #166534;
+}
+.jfs-elementor-status--ng {
+    background: #f1f5f9;
+    color: #94a3b8;
+}
+
+/* ---- Elementor 使い方セクション ---- */
+.jfs-elementor-howto {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 2px solid var(--jfs-border);
+}
+.jfs-elementor-howto h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: var(--jfs-text);
+}
+.jfs-howto-list {
+    margin: 0 0 14px 0;
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 2;
+    color: var(--jfs-text);
+}
+.jfs-howto-list li { margin: 0; }
+
+/* ---- 互換性バッジ ---- */
+.jfs-compat-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+.jfs-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+.jfs-badge--green {
+    background: #dcfce7;
+    color: #166534;
+}

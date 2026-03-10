@@ -1,1 +1,66 @@
-# Japanese-Font-Subsetter
+# Japanese Font Subsetter v2.0
+
+WordPress プラグイン — 日本語フォントのサブセット化 & WOFF2 変換
+
+## v2.0 の主な変更点
+
+**ブラウザ内 JavaScript 処理に完全移行しました。**
+サーバーに Python / fonttools / pyftsubset のインストールは不要です。
+
+### 技術スタック
+- **opentype.js 1.3.4** — フォントの解析・サブセット化
+- **wawoff2 2.0.1** (WebAssembly) — TTF → WOFF2 圧縮
+
+## インストール
+
+1. `japanese-font-subsetter` フォルダごと WordPress の `/wp-content/plugins/` にアップロード
+2. WordPress 管理画面 → プラグイン から有効化
+3. 管理画面メニューの「Font Subsetter」を開く
+
+## 動作環境
+
+- WordPress 5.0+
+- PHP 7.4+
+- モダンブラウザ（Chrome 88+, Firefox 78+, Safari 14+, Edge 88+）
+- **Python・fonttools 不要**
+
+## 使い方
+
+1. フォントファイル（OTF / TTF / WOFF）をドラッグ＆ドロップ、またはファイル選択
+2. サブセット範囲を選択（① なし 〜 ⑨ JIS第2水準）
+3. 「変換開始」をクリック
+4. ブラウザ内で処理後、サーバーに保存 → ダウンロードリンク表示
+
+## サブセットオプション
+
+| # | 内容 | 対象文字数 |
+|---|------|-----------|
+| ① | サブセットなし（WOFF2変換のみ）| 全グリフ |
+| ② | ひらがなのみ | 約89字 |
+| ③ | カタカナのみ | 約107字 |
+| ④ | 半角英数字 | 95字 |
+| ⑤ | 半角＋全角英数字 | 約190字 |
+| ⑥ | かな＋英数字＋記号 | 約575字 |
+| ⑦ | ⑥＋常用漢字 2,136字 | 約2,700字 |
+| ⑧ | ⑥＋JIS第1水準 2,965字 | 約3,500字 |
+| ⑨ | ⑧＋JIS第2水準 3,390字 | 約6,900字 |
+
+## ライセンス
+
+GPL-2.0+
+
+## 変更履歴
+
+### 2.0.0
+- ブラウザ内 JS 処理に移行（Python 不要）
+- opentype.js によるサブセット化
+- wawoff2 (WASM) による WOFF2 圧縮
+- 環境チェックセクションを削除（不要のため）
+- 進捗バーのステップ表示を改善
+
+### 1.0.1
+- pyftsubset の Windows パス問題を修正
+- FontTools Python API に移行
+
+### 1.0.0
+- 初回リリース（Python/fonttools 必要）
